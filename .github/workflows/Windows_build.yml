@@ -81,14 +81,14 @@ jobs:
           if-no-files-found: error
       - name: Create release
         if: |
-          github.repository == 'xenia-canary/xenia-canary' &&
+          github.repository == 'greybaron/xenia-canary-noavxcheck' &&
           github.event.action != 'pull_request' &&
           contains(github.ref, 'refs/heads/canary') &&
           github.ref != 'refs/heads/canary_base'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $asset="xenia_canary.zip"
+          $asset="xenia_canary_noavxcheck.zip"
           rm -recurse -force artifacts\xenia_canary\*.pdb # Ideally this would use xr, but I can't get it to work
           7z a $asset .\artifacts\xenia_canary\*
           If ($(Get-Item $asset).length -le 100000) {
